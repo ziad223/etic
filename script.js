@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initChatbot();
   initBackToTop();
   initLanguageEngine();
+  initRiyadhClock();
 });
 
 /* ==================== 1. NAVBAR & SCROLL ==================== */
@@ -26,13 +27,8 @@ function initNavbar() {
   const drawerLinks = document.querySelectorAll('.mobile-nav-link');
 
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 30) {
-      navbar.classList.add('bg-slate-950/95', 'shadow-2xl', 'border-slate-800');
-      navbar.classList.remove('bg-slate-950/80');
-    } else {
-      navbar.classList.remove('bg-slate-950/95');
-      navbar.classList.add('bg-slate-950/80');
-    }
+    // Light navbar: only toggle a soft elevated state on scroll (never dark)
+    navbar.classList.toggle('nav-scrolled', window.scrollY > 30);
   });
 
   if (mobileMenuBtn && mobileDrawer) {
@@ -113,6 +109,48 @@ function initStatsCounter() {
 /* ==================== 3. BILINGUAL DICTIONARY & ENGINE ==================== */
 const i18nDict = {
   ar: {
+    hero_fb2_sub: "ربط مع المستثمرين",
+    hero_fb2_title: "غرفة الصفقات",
+    hero_fb1_sub: "واجهة الأعمال، الرياض",
+    hero_fb1_title: "ECIT Hub",
+    hero_m3: "شريك نجاح",
+    hero_m2: "خدمة تقنية",
+    hero_m1: "منصة جاهزة",
+    hero_j4: "الإطلاق والاستثمار",
+    hero_j3: "التطوير والتقنية",
+    hero_j2: "الاحتضان والتأسيس",
+    hero_j1: "الفكرة ودراسة الجدوى",
+    hero_panel_live: "مباشر",
+    hero_panel_title: "رحلة مشروعك معنا",
+        nav_tracks: "مسارات الأعمال",
+    hero_badge: "منظومة تقنية واستثمارية متكاملة • رؤية 2030",
+    tracks_tag: "مسارات المنظومة والتوجهات الاستراتيجية",
+    tracks_title: "منظومة متكاملة لرواد الأعمال، المستثمرين، والمؤسسات",
+    tracks_sub: "نقدم حلولاً استراتيجية متكاملة تتجاوز البرمجيات التقليدية لتغطي دورة حياة المشروع الاستثماري والتقني بالكامل",
+    track_1_title: "حاضنة ومسرّعة أعمال تقنية (ECIT Hub)",
+    track_1_desc: "رعاية المشاريع الريادية من الفكرة إلى السوق، وتوفير باقات الاحتضان وبناء نموذج العمل والـ MVP.",
+    track_2_title: "غرفة الصفقات وجولات الاستثمار",
+    track_2_desc: "ربط المشاريع الريادية بشبكة المستثمرين، دراسة الجاهزية الاستثمارية، وتوقيع اتفاقيات السرية (NDA) والتمويل.",
+    track_3_title: "الاستشارات ودراسات الجدوى ومحفظة الساعات",
+    track_3_desc: "دراسات جدوى تقنية ونماذج مالية معتمدة، مع محفظة ساعات استشارية مرنة مع مستشارين متخصصين.",
+    track_4_title: "مساحات العمل والمكاتب وقاعات الاجتماعات",
+    track_4_desc: "مكاتب مجهزة وقاعات اجتماعات ذكية ومساحات عمل مشتركة لدعم رواد الأعمال في واجهة الأعمال بالرياض.",
+    track_5_title: "بناء وإطلاق المنصات المؤسسية (18 منصة)",
+    track_5_desc: "18 منصة وتطبيقاً برمجياً جاهزاً للتخصيص والإطلاق في قطاعات التجارة، الصحة، التعليم، والخدمات اللوجستية.",
+    track_6_title: "التحول الرقمي وحلول المؤسسات المتقدمة",
+    track_6_desc: "بوابات الدفع الإلكتروني المعتمدة، تكامل الأنظمة (APIs)، الأمن السيبراني، الذكاء الاصطناعي، والتحكيم الفني.",
+    journey_tag: "منهجية العمل والاحتضان",
+    journey_title: "رحلة مشروعك معنا في 4 مراحل واضحة",
+    journey_sub: "نبني مشروعك معك خطوة بخطوة من الفكرة حتى النزول للسوق وتحقيق النمو",
+    step_1_title: "1. مرحلة الفكرة والدراسة",
+    step_1_desc: "جلسات استشارية، دراسات جدوى تقنية ومالية، وهيكلة نموذج العمل وقيمة المشروع السوقية.",
+    step_2_title: "2. مرحلة التأسيس والاحتضان",
+    step_2_desc: "الانضمام لحاضنة ECIT Hub، توفير المساحات المكتبية، استخراج التراخيص، وإعداد العقود والاتفاقيات.",
+    step_3_title: "3. مرحلة التطوير والتقنية",
+    step_3_desc: "تصميم تجربة المستخدم UI/UX، برمجة المنصة وتطبيقات الجوال، ربط بوابات الدفع، وإعداد البنية السحابية.",
+    step_4_title: "4. مرحلة الانطلاق والاستثمار",
+    step_4_desc: "إطلاق المشروع رسمياً، الإدراج في غرفة الصفقات وعرض الفرصة على شبكة المستثمرين لتحصيل التمويل.",
+    track_cta_btn: "اكتشف المزيد عن المسار",
     brand_title: "شركة خبراء تقنية المعلومات",
     brand_sub: "ECIT — الحلول التقنية الذكية",
     v2030_pill: "رؤية 2030",
@@ -126,18 +164,18 @@ const i18nDict = {
     cta_consultation: "طلب استشارة تقنية",
     cta_consultation_short: "استشارة تقنية",
     hero_v2030_badge: "ملتزمون بتمكين التحول الرقمي وفق مستهدفات رؤية السعودية 2030",
-    hero_title: "نبتكر البرمجيات، <br><span class=\"text-gradient-cyan\">ونقود التحول الرقمي للمستقبل</span>",
-    hero_tagline: "<strong class=\"text-cyan-400\">شركة خبراء تقنية المعلومات (ECIT)</strong> — وجهة رواد الأعمال وأصحاب المشاريع المتميزة",
-    hero_desc: "نساعد المنظمات العصرية ورواد الأعمال على تطوير خدمات تقنية المعلومات لتلبية احتياجات أعمالهم بأعلى معايير الجودة والأمان البرمجي، لنصنع معاً حلولاً رقمية تفوق التوقعات وتصنع فارقاً حقيقياً.",
-    hero_btn1_title: "ابدأ مشروعك / طلب استشارة تقنية",
-    hero_btn1_sub: "تواصل مباشر وسريع مع خبرائنا الهندسيين",
-    hero_btn2_title: "استكشف منتجاتنا البرمجية الجاهزة (18)",
-    hero_btn2_sub: "منصات وتطبيقات جاهزة للتخصيص والإطلاق الفوري",
-    hero_btn3_title: "تحميل الملف التعريفي للشركة (PDF)",
-    hero_btn3_sub: "بروفايل رسمي معتمد يوضح سابقة الأعمال والخدمات",
-    trust_1: "معايير أمان معتمدة",
-    trust_2: "فرق عمل برمجية مرنة",
-    trust_3: "دعم فني واستشارات مستمرة",
+    hero_title: "حلول تقنية ذكية<br><span class=\"text-gradient-blue\">لنمو أعمالك واستثماراتك</span>",
+    hero_tagline: "<strong class=\"text-blue-600\">ECIT</strong> و <strong class=\"text-indigo-600\">ECIT Hub</strong> — التقنية والاحتضان والاستثمار في مكان واحد",
+    hero_desc: "من دراسة الفكرة وتأسيس المشروع، إلى بناء المنصات الرقمية والوصول إلى المستثمرين — نرافقك في كل مرحلة.",
+    hero_btn1_title: "اطلب استشارة",
+    hero_btn1_sub: "جلسة استشارية متخصصة مع خبرائنا",
+    hero_btn2_title: "استكشف مساراتنا",
+    hero_btn2_sub: "الحاضنة، غرفة الصفقات، و18 منصة جاهزة",
+    hero_btn3_title: "بروفايل الشركة",
+    hero_btn3_sub: "الملف التعريفي الرسمي وسابقة الأعمال",
+    trust_1: "حاضنة أعمال معتمدة",
+    trust_2: "+18 منصة جاهزة",
+    trust_3: "شبكة مستثمرين",
     stat_1_title: "منتج ومنصة رقمية",
     stat_1_sub: "جاهزة للتخصيص والإطلاق السريع",
     stat_2_title: "خدمة تقنية متكاملة",
@@ -267,6 +305,48 @@ const i18nDict = {
     chatbot_input_ph: "اكتب استفسارك هنا..."
   },
   en: {
+    hero_fb2_sub: "Investor matchmaking",
+    hero_fb2_title: "Deal Room",
+    hero_fb1_sub: "Business Gate, Riyadh",
+    hero_fb1_title: "ECIT Hub",
+    hero_m3: "Partners",
+    hero_m2: "Tech Services",
+    hero_m1: "Ready Platforms",
+    hero_j4: "Launch & Funding",
+    hero_j3: "Engineering & Build",
+    hero_j2: "Incubation & Setup",
+    hero_j1: "Idea & Feasibility",
+    hero_panel_live: "Live",
+    hero_panel_title: "Your Venture Journey",
+        nav_tracks: "Tracks",
+    hero_badge: "Integrated Tech & Investment Ecosystem • Vision 2030",
+    tracks_tag: "Strategic Ecosystem Tracks",
+    tracks_title: "Integrated Ecosystem for Founders, Investors & Enterprises",
+    tracks_sub: "Delivering holistic strategic capabilities beyond conventional development across the complete venture & tech lifecycle",
+    track_1_title: "ECIT Hub Incubator & Accelerator",
+    track_1_desc: "Nurturing early-stage ventures from ideation to launch with tailored incubation packages, business modeling, and MVP build.",
+    track_2_title: "Deal Pipeline & Investor Room",
+    track_2_desc: "Connecting high-potential startups with investor networks, readiness assessments, NDAs, and fundraising rounds.",
+    track_3_title: "Advisory, Feasibility & Hours Wallet",
+    track_3_desc: "Certified technical & financial feasibility studies with flexible advisory hours packages led by industry experts.",
+    track_4_title: "Offices, Workspaces & Meeting Rooms",
+    track_4_desc: "Fully equipped private offices, smart boardrooms, and collaborative spaces in Riyadh Business Gate.",
+    track_5_title: "Venture Building & 18 Ready Platforms",
+    track_5_desc: "18 enterprise-grade turnkey platforms ready for rapid customization across commerce, health, edtech, and logistics.",
+    track_6_title: "Enterprise Digital Transformation",
+    track_6_desc: "Certified payment gateways (Mada/Apple Pay), system integration (APIs), cybersecurity, AI, and code arbitration.",
+    journey_tag: "The Venture Incubation Journey",
+    journey_title: "Your Venture Journey in 4 Structured Stages",
+    journey_sub: "We build your venture step-by-step from raw idea to market scale and investor readiness",
+    step_1_title: "1. Ideation & Feasibility",
+    step_1_desc: "Advisory workshops, technical and market feasibility studies, and business model canvas structuring.",
+    step_2_title: "2. Incubation & Setup",
+    step_2_desc: "Onboarding to ECIT Hub incubator, office allocation, regulatory licensing, and corporate agreements.",
+    step_3_title: "3. Engineering & Build",
+    step_3_desc: "UI/UX design, native mobile & platform development, payment gateway integration, and cloud DevOps.",
+    step_4_title: "4. Launch & Fundraising",
+    step_4_desc: "Official public rollout, deal room investor syndication, and growth-stage capital fundraising.",
+    track_cta_btn: "Explore Track Details",
     brand_title: "Information Technology Experts Co.",
     brand_sub: "ECIT — Smart Enterprise Solutions",
     v2030_pill: "Vision 2030",
@@ -280,18 +360,18 @@ const i18nDict = {
     cta_consultation: "Get Consultation",
     cta_consultation_short: "Consultation",
     hero_v2030_badge: "Committed to Enabling Digital Transformation under Saudi Vision 2030",
-    hero_title: "Innovating Software, <br><span class=\"text-gradient-cyan\">Leading the Digital Future</span>",
-    hero_tagline: "<strong class=\"text-cyan-400\">Information Technology Experts Co. (ECIT)</strong> — The Destination for Visionary Entrepreneurs",
-    hero_desc: "We empower modern organizations and entrepreneurs by building high-performance IT solutions that meet dynamic business demands with certified global standards of quality and cybersecurity.",
-    hero_btn1_title: "Start Your Project / Free Tech Consultation",
-    hero_btn1_sub: "Direct instant discussion with our software engineers",
-    hero_btn2_title: "Explore Ready-Made Software Products (18)",
+    hero_title: "Smart Technology<br><span class=\"text-gradient-blue\">to Grow Your Business</span>",
+    hero_tagline: "<strong class=\"text-blue-600\">ECIT</strong> & <strong class=\"text-indigo-600\">ECIT Hub</strong> — technology, incubation and investment in one place",
+    hero_desc: "From validating your idea and setting up your company, to building digital platforms and reaching investors — we support you at every stage.",
+    hero_btn1_title: "Get Consultation",
+    hero_btn1_sub: "Direct strategic session with our tech leads",
+    hero_btn2_title: "Explore Our Tracks",
     hero_btn2_sub: "Fully customizable platforms and mobile apps ready to launch",
-    hero_btn3_title: "Download Company Profile (PDF)",
-    hero_btn3_sub: "Official certified profile detailing our expertise and portfolio",
-    trust_1: "Certified Security Standards",
-    trust_2: "Agile Engineering Teams",
-    trust_3: "Continuous 24/7 Support",
+    hero_btn3_title: "Company Profile",
+    hero_btn3_sub: "Official portfolio and credential brief",
+    trust_1: "Certified Incubator",
+    trust_2: "18+ Ready Platforms",
+    trust_3: "Investor Network",
     stat_1_title: "Digital Products & Platforms",
     stat_1_sub: "Ready for Rapid Deployment",
     stat_2_title: "Specialized Tech Services",
@@ -480,6 +560,9 @@ function applyLanguage(lang) {
   }
   if (window.updateChatbotLanguage) {
     window.updateChatbotLanguage();
+  }
+  if (typeof initRiyadhClock === 'function') {
+    initRiyadhClock();
   }
 }
 window.applyLanguage = applyLanguage;
@@ -956,6 +1039,11 @@ const productsData = [
   }
 ];
 
+// Assign professional custom cover images for all products
+productsData.forEach(p => {
+  p.cover = 'images/products/' + p.id + '.png';
+});
+
 function initProductsSystem() {
   const container = document.getElementById('products-grid');
   const filterBtns = document.querySelectorAll('.product-filter-btn');
@@ -992,32 +1080,34 @@ function initProductsSystem() {
     }
 
     container.innerHTML = items.map(p => `
-      <div class="glass-panel glass-panel-hover rounded-2xl overflow-hidden flex flex-col border border-slate-800 group" data-cat="${p.category}">
-        <div class="relative h-56 bg-slate-900/90 overflow-hidden flex items-center justify-center p-4 border-b border-slate-800/80">
-          <img src="${p.image}" alt="${p.title[currentLang]}" class="max-h-full max-w-full object-contain transform group-hover:scale-105 transition-transform duration-500 rounded-lg">
-          <span class="absolute top-3 right-3 text-xs font-semibold px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30 backdrop-blur-md">
+      <div class="executive-card product-card-dazzle card-shimmer rounded-3xl overflow-hidden flex flex-col border border-slate-200/90 group bg-white shadow-md hover-glow-blue relative" data-cat="${p.category}">
+        <div class="relative h-56 overflow-hidden bg-slate-100">
+          <img src="${p.cover}" alt="${p.title[currentLang]}" loading="lazy" onerror="this.onerror=null;this.src='${p.image}';this.classList.remove('object-cover');this.classList.add('object-contain','p-6');" class="w-full h-full object-cover transform group-hover:scale-108 transition-transform duration-700">
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950/50 via-slate-900/10 to-transparent pointer-events-none"></div>
+          <span class="absolute top-3.5 right-3.5 text-xs font-bold px-3 py-1 rounded-full bg-white/95 text-blue-700 border border-white shadow-md backdrop-blur-md flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span>
             ${p.badge[currentLang]}
           </span>
         </div>
-        <div class="p-6 flex-1 flex flex-col justify-between">
+        <div class="p-6 sm:p-7 flex-1 flex flex-col justify-between">
           <div>
-            <div class="text-xs text-cyan-400 font-semibold mb-2 flex items-center gap-1.5">
-              <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+            <div class="text-xs text-blue-600 font-bold mb-2.5 flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-blue-500 animate-ping"></span>
               ${p.categoryLabel[currentLang]}
             </div>
-            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-cyan-300 transition-colors">
+            <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition-colors">
               ${p.title[currentLang]}
             </h3>
-            <p class="text-slate-400 text-sm leading-relaxed mb-4 line-clamp-3">
+            <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">
               ${p.desc[currentLang]}
             </p>
           </div>
-          <div class="pt-4 border-t border-slate-800/80 flex items-center justify-between">
-            <button onclick="openProductModal('${p.id}')" class="text-sm font-semibold text-cyan-400 hover:text-white flex items-center gap-2 group-hover:gap-3 transition-all">
+          <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+            <button onclick="openProductModal('${p.id}')" class="text-sm font-bold text-blue-600 hover:text-blue-700 flex items-center gap-2 group-hover:gap-3 transition-all">
               <span>${currentLang === 'ar' ? 'عرض التفاصيل والمميزات' : 'View Details & Features'}</span>
               <i class="fa-solid fa-arrow-left ${currentLang === 'en' ? 'rotate-180' : ''} text-xs"></i>
             </button>
-            <button onclick="openConsultationForProduct('${p.title[currentLang]}')" class="p-2 rounded-lg bg-blue-600/20 hover:bg-blue-600 text-blue-400 hover:text-white text-xs font-medium transition-colors" title="${currentLang === 'ar' ? 'طلب تجربة' : 'Request Demo'}">
+            <button onclick="openConsultationForProduct('${p.title[currentLang]}')" class="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white border border-blue-100 flex items-center justify-center text-xs transition-colors shadow-sm" title="${currentLang === 'ar' ? 'طلب استشارة أو ديمو' : 'Request Demo'}">
               <i class="fa-solid fa-headset"></i>
             </button>
           </div>
@@ -1031,11 +1121,11 @@ function initProductsSystem() {
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       filterBtns.forEach(b => {
-        b.classList.remove('bg-blue-600', 'text-white', 'shadow-lg', 'shadow-blue-600/30');
-        b.classList.add('bg-slate-900/60', 'text-slate-400', 'border-slate-800');
+        b.classList.remove('bg-blue-600', 'text-white', 'shadow-md');
+        b.classList.add('bg-white', 'text-slate-700', 'border', 'border-slate-200');
       });
-      btn.classList.add('bg-blue-600', 'text-white', 'shadow-lg', 'shadow-blue-600/30');
-      btn.classList.remove('bg-slate-900/60', 'text-slate-400', 'border-slate-800');
+      btn.classList.add('bg-blue-600', 'text-white', 'shadow-md');
+      btn.classList.remove('bg-white', 'text-slate-700', 'border', 'border-slate-200');
       window.renderProducts();
     });
   });
@@ -1056,39 +1146,39 @@ window.openProductModal = function(id) {
 
   modalBody.innerHTML = `
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-      <div class="bg-slate-900/90 rounded-2xl p-6 border border-slate-800 flex items-center justify-center max-h-[360px] overflow-hidden">
-        <img src="${product.image}" alt="${product.title[currentLang]}" class="max-h-80 max-w-full object-contain rounded-xl shadow-2xl">
+      <div class="rounded-2xl border border-slate-200 overflow-hidden shadow-md bg-slate-100 aspect-[16/10]">
+        <img src="${product.cover}" alt="${product.title[currentLang]}" onerror="this.onerror=null;this.src='${product.image}';this.classList.remove('object-cover');this.classList.add('object-contain','p-6');" class="w-full h-full object-cover">
       </div>
       <div>
         <div class="flex items-center gap-2 mb-3">
-          <span class="px-3 py-1 rounded-full text-xs font-semibold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+          <span class="px-3 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-700 border border-blue-200">
             ${product.badge[currentLang]}
           </span>
-          <span class="text-xs text-slate-400">${product.categoryLabel[currentLang]}</span>
+          <span class="text-xs font-semibold text-slate-500">${product.categoryLabel[currentLang]}</span>
         </div>
-        <h3 class="text-2xl md:text-3xl font-extrabold text-white mb-4">${product.title[currentLang]}</h3>
-        <p class="text-slate-300 text-sm md:text-base leading-relaxed mb-6">${product.desc[currentLang]}</p>
+        <h3 class="text-2xl md:text-3xl font-black text-slate-900 mb-4">${product.title[currentLang]}</h3>
+        <p class="text-slate-600 text-sm md:text-base leading-relaxed mb-6">${product.desc[currentLang]}</p>
         
         <div class="mb-6">
-          <h4 class="text-sm font-bold text-cyan-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+          <h4 class="text-sm font-bold text-blue-600 uppercase tracking-wider mb-3 flex items-center gap-2">
             <i class="fa-solid fa-list-check"></i>
             <span>${currentLang === 'ar' ? 'أبرز المميزات والخصائص التقنية:' : 'Key Technical Capabilities:'}</span>
           </h4>
           <ul class="space-y-2.5">
             ${product.features[currentLang].map(f => `
-              <li class="flex items-start gap-2.5 text-sm text-slate-200">
-                <i class="fa-solid fa-circle-check text-emerald-400 mt-1 flex-shrink-0"></i>
+              <li class="flex items-start gap-2.5 text-sm text-slate-700">
+                <i class="fa-solid fa-circle-check text-emerald-600 mt-1 flex-shrink-0"></i>
                 <span>${f}</span>
               </li>
             `).join('')}
           </ul>
         </div>
 
-        <div class="flex flex-wrap gap-3 pt-4 border-t border-slate-800">
-          <button onclick="openConsultationForProduct('${product.title[currentLang]}')" class="flex-1 py-3 px-6 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-bold text-sm shadow-lg shadow-cyan-500/20 transition-all text-center">
+        <div class="flex flex-wrap gap-3 pt-4 border-t border-slate-100">
+          <button onclick="openConsultationForProduct('${product.title[currentLang]}')" class="flex-1 py-3 px-6 rounded-xl btn-primary-blue text-white font-bold text-sm shadow-md transition-all text-center">
             ${currentLang === 'ar' ? 'طلب عرض فني وتجربة المنصة' : 'Request Technical Demo'}
           </button>
-          <a href="https://wa.me/966501252878?text=${encodeURIComponent((currentLang === 'ar' ? 'السلام عليكم، أود الاستفسار عن: ' : 'Hello, I want to inquire about: ') + product.title[currentLang])}" target="_blank" class="py-3 px-5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600 text-emerald-400 hover:text-white border border-emerald-500/30 text-sm font-bold transition-all flex items-center gap-2">
+          <a href="https://wa.me/966501252878?text=${encodeURIComponent((currentLang === 'ar' ? 'السلام عليكم، أود الاستفسار عن: ' : 'Hello, I want to inquire about: ') + product.title[currentLang])}" target="_blank" class="py-3 px-5 rounded-xl bg-emerald-50 hover:bg-emerald-600 text-emerald-700 hover:text-white border border-emerald-200 text-sm font-bold transition-all flex items-center gap-2 shadow-sm">
             <i class="fa-brands fa-whatsapp text-lg"></i>
             <span>${currentLang === 'ar' ? 'واتساب' : 'WhatsApp'}</span>
           </a>
@@ -1200,20 +1290,26 @@ function initProjectsModal() {
       const desc = p.description[currentLang] || p.description['ar'];
 
       return `
-        <div class="glass-panel glass-panel-hover rounded-2xl p-6 border border-slate-800 flex flex-col justify-between group">
+        <div class="executive-card card-shimmer hover-glow-emerald rounded-3xl p-7 border border-slate-200/90 flex flex-col justify-between group bg-white shadow-md transition-all duration-300 relative overflow-hidden">
+          <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-500 opacity-80 group-hover:opacity-100 transition-opacity"></div>
           <div>
             <div class="flex items-center gap-4 mb-4">
-              <img src="${p.image}" alt="${name}" class="w-16 h-16 object-contain rounded-xl bg-slate-900 p-1 border border-slate-800">
+              <div class="relative w-16 h-16 rounded-2xl bg-gradient-to-br from-slate-50 to-emerald-50/50 p-2 border border-slate-200 shadow-sm flex items-center justify-center group-hover:border-emerald-300 transition-colors">
+                <img src="${p.image}" alt="${name}" class="w-full h-full object-contain">
+              </div>
               <div>
-                <span class="text-xs text-cyan-400 font-semibold">${tag}</span>
-                <h3 class="text-xl font-bold text-white group-hover:text-cyan-300 transition-colors">${name}</h3>
+                <span class="text-xs text-emerald-600 font-bold flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                  ${tag}
+                </span>
+                <h3 class="text-xl font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">${name}</h3>
               </div>
             </div>
-            <p class="text-slate-300 text-sm leading-relaxed mb-4 line-clamp-3">${desc}</p>
+            <p class="text-slate-600 text-sm leading-relaxed mb-5 line-clamp-3">${desc}</p>
           </div>
-          <button onclick="openProjectModal(${idx})" class="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700/80 text-xs font-bold transition-all text-center flex items-center justify-center gap-2">
+          <button onclick="openProjectModal(${idx})" class="w-full py-3 rounded-xl bg-slate-50 hover:bg-emerald-600 text-slate-700 hover:text-white border border-slate-200 hover:border-emerald-600 text-xs font-bold transition-all text-center flex items-center justify-center gap-2 shadow-sm group/btn">
             <span>${detailBtnText}</span>
-            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-cyan-400"></i>
+            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-emerald-500 group-hover/btn:text-white group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform"></i>
           </button>
         </div>
       `;
@@ -1230,23 +1326,23 @@ function initProjectsModal() {
 
     modalBody.innerHTML = `
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-        <div class="bg-slate-900 rounded-2xl p-8 border border-slate-800 flex items-center justify-center">
-          <img src="${project.image}" alt="${project.name[currentLang]}" class="max-h-48 max-w-full object-contain rounded-2xl shadow-xl">
+        <div class="bg-slate-50 rounded-2xl p-8 border border-slate-200 flex items-center justify-center shadow-sm">
+          <img src="${project.image}" alt="${project.name[currentLang]}" class="max-h-48 max-w-full object-contain rounded-2xl shadow-md">
         </div>
         <div>
-          <span class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+          <span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
             ${project.tag[currentLang]}
           </span>
-          <h3 class="text-3xl font-extrabold text-white mt-3 mb-4">${project.name[currentLang]}</h3>
-          <p class="text-slate-300 text-base leading-relaxed mb-6">${project.description[currentLang]}</p>
-          <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 mb-6">
-            <div class="text-xs text-slate-400 mb-1">${currentLang === 'ar' ? 'حالة المشروع' : 'Project Status'}</div>
-            <div class="text-sm font-bold text-emerald-400 flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          <h3 class="text-3xl font-black text-slate-900 mt-3 mb-4">${project.name[currentLang]}</h3>
+          <p class="text-slate-600 text-base leading-relaxed mb-6">${project.description[currentLang]}</p>
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 mb-6 shadow-sm">
+            <div class="text-xs text-slate-500 mb-1 font-semibold">${currentLang === 'ar' ? 'حالة المشروع' : 'Project Status'}</div>
+            <div class="text-sm font-bold text-emerald-700 flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
               ${currentLang === 'ar' ? 'منجز ويعمل بكفاءة عالية في السوق السعودي' : 'Deployed and running successfully in production'}
             </div>
           </div>
-          <button onclick="openConsultationForProduct('${project.name[currentLang]}')" class="w-full py-3 px-6 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm transition-all text-center">
+          <button onclick="openConsultationForProduct('${project.name[currentLang]}')" class="w-full py-3 px-6 rounded-xl btn-primary-blue text-white font-bold text-sm transition-all text-center shadow-md">
             ${currentLang === 'ar' ? 'اطلب نظاماً برمجياً مماثلاً لمشروعك' : 'Request Similar System for Your Enterprise'}
           </button>
         </div>
@@ -1306,7 +1402,7 @@ const servicesData = {
   },
   "automation-solutions": {
     title: { ar: "حلول الأتمتة والتحول الرقمي", en: "Workflow Automation Solutions" },
-    icon: "fa-robot",
+    icon: "fa-gears",
     desc: {
       ar: "نوفر حلول أتمتة متكاملة تهدف إلى تحسين الكفاءة التشغيلية وتقليل التكاليف من خلال تحويل المهام اليدوية الروتينية إلى عمليات رقمية مؤتمتة وسريعة.",
       en: "Automating repetitive workflows, customer service, and back-office operations to eliminate human error and slash operational expenses."
@@ -1319,7 +1415,7 @@ const servicesData = {
         "تقارير فورية ولوحات متابعة لتحليل وتحسين الأداء التشغيلي"
       ],
       en: [
-        "Custom workflow design and robotic process automation",
+        "Custom workflow design and intelligent process automation",
         "Error-free execution of high-volume repetitive tasks",
         "Seamless synchronization across ERP and CRM systems",
         "Live operational bottlenecks analytics and efficiency KPIs"
@@ -1542,20 +1638,24 @@ function initServicesAccordion() {
       const desc = s.desc[currentLang] || s.desc['ar'];
 
       return `
-        <div class="glass-panel glass-panel-hover rounded-2xl p-7 border border-slate-800 flex flex-col justify-between group">
+        <div class="executive-card card-shimmer hover-glow-blue rounded-3xl p-7 flex flex-col justify-between group bg-white border border-slate-200/90 shadow-md transition-all duration-300 relative overflow-hidden">
+          <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 via-indigo-500 to-cyan-400 opacity-80 group-hover:opacity-100 transition-opacity"></div>
           <div>
-            <div class="w-12 h-12 rounded-xl bg-blue-600/20 text-cyan-400 flex items-center justify-center text-xl mb-5 border border-blue-500/30">
+            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50/60 text-blue-600 flex items-center justify-center text-2xl mb-5 border border-blue-100 shadow-sm group-hover:bg-blue-600 group-hover:text-white group-hover:shadow-lg group-hover:shadow-blue-500/25 transition-all duration-300">
               <i class="fa-solid ${s.icon}"></i>
             </div>
-            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors">${title}</h3>
-            <p class="text-slate-400 text-sm leading-relaxed mb-4 line-clamp-3">${desc}</p>
+            <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition-colors">${title}</h3>
+            <p class="text-slate-600 text-sm leading-relaxed mb-5 line-clamp-3">${desc}</p>
           </div>
-          <div class="pt-4 border-t border-slate-800/80 flex items-center justify-between">
-            <button onclick="openServiceModal('${key}')" class="text-xs font-bold text-cyan-400 hover:text-white flex items-center gap-1.5 transition-colors">
+          <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+            <button onclick="openServiceModal('${key}')" class="text-xs font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1.5 transition-colors group/btn">
               <span>${detailBtnText}</span>
-              <i class="fa-solid ${arrowIcon} text-[10px]"></i>
+              <i class="fa-solid ${arrowIcon} text-[10px] group-hover/btn:translate-x-1 rtl:group-hover/btn:-translate-x-1 transition-transform"></i>
             </button>
-            <span class="text-[11px] text-slate-500 font-mono">ECIT Enterprise</span>
+            <span class="text-[11px] font-semibold text-slate-400 flex items-center gap-1">
+              <i class="fa-solid fa-circle-check text-blue-500 text-[10px]"></i>
+              ECIT Specialized
+            </span>
           </div>
         </div>
       `;
@@ -1573,39 +1673,39 @@ function initServicesAccordion() {
     modalBody.innerHTML = `
       <div>
         <div class="flex items-center gap-3 mb-4">
-          <div class="w-12 h-12 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center text-2xl border border-blue-500/30">
+          <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-2xl border border-blue-200 shadow-sm">
             <i class="fa-solid ${service.icon}"></i>
           </div>
           <div>
-            <span class="text-xs text-cyan-400 font-semibold">${currentLang === 'ar' ? 'خدمات خبراء تقنية المعلومات' : 'ECIT Enterprise Services'}</span>
-            <h3 class="text-2xl font-extrabold text-white">${service.title[currentLang]}</h3>
+            <span class="text-xs text-blue-600 font-bold">${currentLang === 'ar' ? 'خدمات خبراء تقنية المعلومات المعتمدة' : 'ECIT Certified Enterprise Services'}</span>
+            <h3 class="text-2xl font-black text-slate-900">${service.title[currentLang]}</h3>
           </div>
         </div>
 
-        <p class="text-slate-300 text-base leading-relaxed mb-6 bg-slate-900/60 p-5 rounded-xl border border-slate-800">
+        <p class="text-slate-600 text-base leading-relaxed mb-6 bg-slate-50 p-5 rounded-xl border border-slate-200">
           ${service.desc[currentLang]}
         </p>
 
         <div class="mb-8">
-          <h4 class="text-sm font-bold text-cyan-400 uppercase tracking-wider mb-4 flex items-center gap-2">
+          <h4 class="text-sm font-bold text-blue-600 uppercase tracking-wider mb-4 flex items-center gap-2">
             <i class="fa-solid fa-circle-check"></i>
             <span>${currentLang === 'ar' ? 'نطاق العمل والمخرجات المقدمة:' : 'Deliverables & Scope of Work:'}</span>
           </h4>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             ${service.features[currentLang].map(f => `
-              <div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800/80 flex items-start gap-3">
-                <i class="fa-solid fa-check text-emerald-400 mt-1 flex-shrink-0"></i>
-                <span class="text-sm text-slate-200 leading-snug">${f}</span>
+              <div class="p-3.5 rounded-xl bg-white border border-slate-200 flex items-start gap-3 shadow-sm">
+                <i class="fa-solid fa-check text-emerald-600 mt-1 flex-shrink-0"></i>
+                <span class="text-sm text-slate-700 leading-snug font-medium">${f}</span>
               </div>
             `).join('')}
           </div>
         </div>
 
-        <div class="flex flex-wrap gap-4 pt-4 border-t border-slate-800">
-          <button onclick="openConsultationForProduct('${service.title[currentLang]}')" class="flex-1 py-3.5 px-6 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-bold text-sm shadow-lg shadow-cyan-500/20 transition-all text-center">
+        <div class="flex flex-wrap gap-4 pt-4 border-t border-slate-100">
+          <button onclick="openConsultationForProduct('${service.title[currentLang]}')" class="flex-1 py-3.5 px-6 rounded-xl btn-primary-blue text-white font-bold text-sm shadow-md transition-all text-center">
             ${currentLang === 'ar' ? 'طلب استشارة وعرض سعر للخدمة' : 'Request Proposal & Pricing'}
           </button>
-          <a href="https://wa.me/966501252878?text=${encodeURIComponent((currentLang === 'ar' ? 'السلام عليكم، أود استشارة حول: ' : 'Hello, I want consultation regarding: ') + service.title[currentLang])}" target="_blank" class="py-3.5 px-6 rounded-xl bg-emerald-600/20 hover:bg-emerald-600 text-emerald-400 hover:text-white border border-emerald-500/30 text-sm font-bold transition-all flex items-center gap-2">
+          <a href="https://wa.me/966501252878?text=${encodeURIComponent((currentLang === 'ar' ? 'السلام عليكم، أود استشارة حول: ' : 'Hello, I want consultation regarding: ') + service.title[currentLang])}" target="_blank" class="py-3.5 px-6 rounded-xl bg-emerald-50 hover:bg-emerald-600 text-emerald-700 hover:text-white border border-emerald-200 text-sm font-bold transition-all flex items-center gap-2 shadow-sm">
             <i class="fa-brands fa-whatsapp text-lg"></i>
             <span>${currentLang === 'ar' ? 'تواصل عبر واتساب' : 'WhatsApp'}</span>
           </a>
@@ -1745,7 +1845,7 @@ function initChatbot() {
     const pillsDiv = document.createElement('div');
     pillsDiv.className = 'flex flex-wrap gap-1.5 my-2';
     pillsDiv.innerHTML = pills.map(p => `
-      <button type="button" class="chat-quick-pill px-3 py-1 rounded-full text-xs font-semibold bg-slate-900 border border-slate-700 hover:border-cyan-400 text-slate-300 hover:text-white transition-all">
+      <button type="button" class="chat-quick-pill px-3 py-1 rounded-full text-xs font-semibold bg-white border border-slate-200 hover:border-blue-400 text-slate-700 hover:text-blue-600 shadow-sm transition-all">
         ${p.text}
       </button>
     `).join('');
@@ -1776,10 +1876,10 @@ function initChatbot() {
     const msg = document.createElement('div');
     msg.className = 'flex justify-start mb-3 items-start gap-2';
     msg.innerHTML = `
-      <div class="w-7 h-7 rounded-lg bg-blue-600/30 border border-cyan-400/40 text-cyan-400 flex items-center justify-center text-xs flex-shrink-0 mt-1">
-        <i class="fa-solid fa-robot"></i>
+      <div class="w-7 h-7 rounded-lg bg-blue-50 border border-blue-200 text-blue-600 flex items-center justify-center text-xs flex-shrink-0 mt-1">
+        <i class="fa-solid fa-headset"></i>
       </div>
-      <div class="chat-bubble-bot text-slate-200 text-xs sm:text-sm py-2.5 px-4 max-w-[85%] shadow-md leading-relaxed">
+      <div class="chat-bubble-bot text-slate-700 text-xs sm:text-sm py-2.5 px-4 max-w-[85%] shadow-sm leading-relaxed">
         ${html}
       </div>
     `;
@@ -1793,13 +1893,13 @@ function initChatbot() {
     ind.id = id;
     ind.className = 'flex justify-start mb-3 items-center gap-2';
     ind.innerHTML = `
-      <div class="w-7 h-7 rounded-lg bg-blue-600/30 border border-cyan-400/40 text-cyan-400 flex items-center justify-center text-xs flex-shrink-0">
-        <i class="fa-solid fa-robot"></i>
+      <div class="w-7 h-7 rounded-lg bg-blue-50 border border-blue-200 text-blue-600 flex items-center justify-center text-xs flex-shrink-0">
+        <i class="fa-solid fa-headset"></i>
       </div>
-      <div class="p-3 bg-slate-900/90 rounded-2xl border border-slate-800 flex items-center gap-1.5">
-        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 typing-dot"></span>
-        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 typing-dot"></span>
-        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 typing-dot"></span>
+      <div class="p-3 bg-white rounded-2xl border border-slate-200 shadow-sm flex items-center gap-1.5">
+        <span class="w-1.5 h-1.5 rounded-full bg-blue-500 typing-dot"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-blue-500 typing-dot"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-blue-500 typing-dot"></span>
       </div>
     `;
     messagesBox.appendChild(ind);
@@ -1842,28 +1942,39 @@ function initChatbot() {
 function generateSmartAnswer(query) {
   const isAr = currentLang === 'ar';
 
+  if (query.includes('حاضن') || query.includes('مسرع') || query.includes('hub') || query.includes('incubator') || query.includes('مكتب') || query.includes('قاع') || query.includes('office') || query.includes('room')) {
+    return isAr
+      ? `<strong>حاضنة ومسرّعة ECIT Hub:</strong><br>نقدم منظومة متكاملة لدعم رواد الأعمال تشمل:<br>• باقات احتضان مرنة ومسرّعات نمو.<br>• مكاتب مجهزة وقاعات اجتماعات ذكية في واجهة الأعمال بالرياض.<br>• محفظة ساعات استشارية متخصصة.<br>• إدراج المشاريع في غرفة الصفقات للتأهيل الاستثماري.<br><a href="#tracks" class="text-blue-600 underline font-bold mt-2 block">استكشف مسارات ECIT Hub بالتفصيل</a>`
+      : `<strong>ECIT Hub Incubator & Accelerator:</strong><br>We provide a turnkey venture ecosystem including:<br>• Tailored incubation packages & acceleration tracks.<br>• Fully serviced offices & smart boardrooms in Riyadh Business Gate.<br>• Advisory Hours Wallet with certified specialists.<br>• Deal room access for investor syndication.<br><a href="#tracks" class="text-blue-600 underline font-bold mt-2 block">Explore ECIT Hub Tracks</a>`;
+  }
+
+  if (query.includes('استثمار') || query.includes('تمويل') || query.includes('صفق') || query.includes('invest') || query.includes('deal') || query.includes('fund')) {
+    return isAr
+      ? `<strong>غرفة الصفقات وبوابة المستثمرين:</strong><br>نربط الشركات الناشئة الجاهزة للاستثمار مع شبكة المستثمرين المعتمدين، مع توفير دراسات الجاهزية الاستثمارية وتوقيع اتفاقيات السرية (NDA) وإدارة جولات التمويل.<br><a href="#tracks" class="text-blue-600 underline font-bold mt-2 block">عرض تفاصيل بوابة الاستثمار</a>`
+      : `<strong>Deal Pipeline & Investor Portal:</strong><br>We connect investment-ready ventures with our accredited investor network, providing investment readiness assessments, NDA management, and fundraising deal rooms.<br><a href="#tracks" class="text-blue-600 underline font-bold mt-2 block">View Investment Pipeline</a>`;
+  }
   if (query.includes('خدم') || query.includes('service') || query.includes('offer')) {
     return isAr
-      ? `نقدم في <strong>ECIT</strong> 12 خدمة برمجية متكاملة تشمل:<br>• تطوير البرمجيات والأنظمة المخصصة.<br>• تطوير تطبيقات الجوال (iOS / Android).<br>• بوابات وحلول الدفع الإلكتروني.<br>• حلول الأتمتة والربط والـ APIs.<br>• الأمن السيبراني واختبار الاختراق.<br>• الاستضافة السحابية والذكاء الاصطناعي.<br><a href="#services" class="text-cyan-400 underline font-bold mt-2 block">تصفح الخدمات الـ 12 بالتفصيل</a>`
-      : `At <strong>ECIT</strong>, we provide 12 specialized services including:<br>• Custom enterprise software.<br>• Mobile apps (iOS & Android).<br>• E-payment & Mada gateway integration.<br>• Workflow automation & APIs.<br>• Cybersecurity & code audits.<br>• Cloud hosting and AI solutions.<br><a href="#services" class="text-cyan-400 underline font-bold mt-2 block">Explore all 12 services</a>`;
+      ? `نقدم في <strong>ECIT</strong> 12 خدمة برمجية متكاملة تشمل:<br>• تطوير البرمجيات والأنظمة المخصصة.<br>• تطوير تطبيقات الجوال (iOS / Android).<br>• بوابات وحلول الدفع الإلكتروني.<br>• حلول الأتمتة والربط والـ APIs.<br>• الأمن السيبراني واختبار الاختراق.<br>• الاستضافة السحابية والذكاء الاصطناعي.<br><a href="#services" class="text-blue-600 underline font-bold mt-2 block">تصفح الخدمات الـ 12 بالتفصيل</a>`
+      : `At <strong>ECIT</strong>, we provide 12 specialized services including:<br>• Custom enterprise software.<br>• Mobile apps (iOS & Android).<br>• E-payment & Mada gateway integration.<br>• Workflow automation & APIs.<br>• Cybersecurity & code audits.<br>• Cloud hosting and AI solutions.<br><a href="#services" class="text-blue-600 underline font-bold mt-2 block">Explore all 12 services</a>`;
   }
 
   if (query.includes('منتج') || query.includes('product') || query.includes('platform') || query.includes('منص')) {
     return isAr
-      ? `لدينا <strong>18 منتجاً ونظاماً برمجياً جاهزاً</strong> للإطلاق تشمل: منصة التغذية المدرسية، تطبيق صيانة السيارات، تطبيق لخدمات البناء، تطبيق لنقل الشحنات، منصة معايير التحول الرقمي، منصة إدارة اللجان، منصة المحاماة، ومتاجر متعددة البائعين.<br><a href="#products" class="text-cyan-400 underline font-bold mt-2 block">عرض معرض الـ 18 منتجاً مع الصور</a>`
-      : `We offer <strong>18 turnkey software products</strong> ready for customization: School Nutrition, Auto Maintenance, Construction Logistics, Digital Maturity Governance, Board Committees SaaS, Legal Practice, and Multi-Vendor E-Commerce.<br><a href="#products" class="text-cyan-400 underline font-bold mt-2 block">Browse all 18 products</a>`;
+      ? `لدينا <strong>18 منتجاً ونظاماً برمجياً جاهزاً</strong> للإطلاق تشمل: منصة التغذية المدرسية، تطبيق صيانة السيارات، تطبيق لخدمات البناء، تطبيق لنقل الشحنات، منصة معايير التحول الرقمي، منصة إدارة اللجان، منصة المحاماة، ومتاجر متعددة البائعين.<br><a href="#products" class="text-blue-600 underline font-bold mt-2 block">عرض معرض الـ 18 منتجاً مع الصور</a>`
+      : `We offer <strong>18 turnkey software products</strong> ready for customization: School Nutrition, Auto Maintenance, Construction Logistics, Digital Maturity Governance, Board Committees SaaS, Legal Practice, and Multi-Vendor E-Commerce.<br><a href="#products" class="text-blue-600 underline font-bold mt-2 block">Browse all 18 products</a>`;
   }
 
   if (query.includes('استشار') || query.includes('سعر') || query.includes('price') || query.includes('cost') || query.includes('consult')) {
     return isAr
-      ? `يسرنا تقديم استشارة تقنية ودراسة فنية لمشروعك مجاناً! يمكنك تعبئة <a href="#contact" class="text-cyan-400 underline font-bold">نموذج الاستشارة بالأسفل</a> أو التحدث مباشرة مع خبرائنا عبر الواتساب:<br><a href="https://wa.me/966501252878" target="_blank" class="inline-block mt-2 px-3 py-1.5 rounded-lg bg-emerald-600 text-white font-bold text-xs"><i class="fa-brands fa-whatsapp ml-1"></i> فتح محادثة واتساب فورية</a>`
-      : `We are glad to offer a free technical consultation and project proposal! You can fill our <a href="#contact" class="text-cyan-400 underline font-bold">contact form below</a> or chat immediately with our engineering leads via WhatsApp:<br><a href="https://wa.me/966501252878" target="_blank" class="inline-block mt-2 px-3 py-1.5 rounded-lg bg-emerald-600 text-white font-bold text-xs"><i class="fa-brands fa-whatsapp mr-1"></i> Chat on WhatsApp Now</a>`;
+      ? `يسرنا تقديم استشارة تقنية ودراسة فنية لمشروعك مجاناً! يمكنك تعبئة <a href="#contact" class="text-blue-600 underline font-bold">نموذج الاستشارة بالأسفل</a> أو التحدث مباشرة مع خبرائنا عبر الواتساب:<br><a href="https://wa.me/966501252878" target="_blank" class="inline-block mt-2 px-3 py-1.5 rounded-lg bg-emerald-600 text-white font-bold text-xs"><i class="fa-brands fa-whatsapp ml-1"></i> فتح محادثة واتساب فورية</a>`
+      : `We are glad to offer a free technical consultation and project proposal! You can fill our <a href="#contact" class="text-blue-600 underline font-bold">contact form below</a> or chat immediately with our engineering leads via WhatsApp:<br><a href="https://wa.me/966501252878" target="_blank" class="inline-block mt-2 px-3 py-1.5 rounded-lg bg-emerald-600 text-white font-bold text-xs"><i class="fa-brands fa-whatsapp mr-1"></i> Chat on WhatsApp Now</a>`;
   }
 
   if (query.includes('موقع') || query.includes('عنوان') || query.includes('هاتف') || query.includes('رقم') || query.includes('location') || query.includes('address') || query.includes('contact')) {
     return isAr
-      ? `<strong>مقر الشركة:</strong> واجهة الأعمال، طريق الملك فهد، مطار الملك خالد الدولي، الرياض.<br><strong>الهاتف / واتساب:</strong> +966501252878<br><strong>البريد:</strong> info@ecit.com.sa<br><a href="#contact" class="text-cyan-400 underline font-bold mt-1 block">عرض الخريطة التفاعلية</a>`
-      : `<strong>Headquarters:</strong> Business Gate, King Fahd Road, King Khalid Int'l Airport, Riyadh, Saudi Arabia.<br><strong>Phone/WhatsApp:</strong> +966501252878<br><strong>Email:</strong> info@ecit.com.sa<br><a href="#contact" class="text-cyan-400 underline font-bold mt-1 block">View interactive map</a>`;
+      ? `<strong>مقر الشركة:</strong> واجهة الأعمال، طريق الملك فهد، مطار الملك خالد الدولي، الرياض.<br><strong>الهاتف / واتساب:</strong> +966501252878<br><strong>البريد:</strong> info@ecit.com.sa<br><a href="#contact" class="text-blue-600 underline font-bold mt-1 block">عرض الخريطة التفاعلية</a>`
+      : `<strong>Headquarters:</strong> Business Gate, King Fahd Road, King Khalid Int'l Airport, Riyadh, Saudi Arabia.<br><strong>Phone/WhatsApp:</strong> +966501252878<br><strong>Email:</strong> info@ecit.com.sa<br><a href="#contact" class="text-blue-600 underline font-bold mt-1 block">View interactive map</a>`;
   }
 
   if (query.includes('رؤي') || query.includes('2030') || query.includes('vision')) {
@@ -1896,3 +2007,31 @@ function initBackToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 }
+
+/* ==================== 11. RIYADH LIVE CLOCK (KSA TIMEZONE) ==================== */
+function initRiyadhClock() {
+  const clockEl = document.getElementById('riyadh-time');
+  if (!clockEl) return;
+
+  function update() {
+    try {
+      const now = new Date();
+      const options = {
+        timeZone: 'Asia/Riyadh',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+      };
+      clockEl.textContent = new Intl.DateTimeFormat(currentLang === 'ar' ? 'ar-SA' : 'en-US', options).format(now);
+    } catch (e) {
+      const now = new Date();
+      clockEl.textContent = now.toLocaleTimeString();
+    }
+  }
+  update();
+  if (!window.riyadhClockInterval) {
+    window.riyadhClockInterval = setInterval(update, 1000);
+  }
+}
+window.initRiyadhClock = initRiyadhClock;

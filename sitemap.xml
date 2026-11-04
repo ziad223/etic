@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+    
+    <!-- Primary Arabic Home Page -->
+    <url>
+        <loc>https://ecit.com.sa/</loc>
+        <lastmod>2026-11-04</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+        <xhtml:link rel="alternate" hreflang="ar" href="https://ecit.com.sa/" />
+        <xhtml:link rel="alternate" hreflang="ar-SA" href="https://ecit.com.sa/" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://ecit.com.sa/?lang=en" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://ecit.com.sa/" />
+        
+        <!-- Brand Logo Image -->
+        <image:image>
+            <image:loc>https://ecit.com.sa/public/assets/images/logo.png</image:loc>
+            <image:title>شركة خبراء تقنية المعلومات ECIT</image:title>
+            <image:caption>شعار شركة خبراء تقنية المعلومات وحاضنة ومسرعة الأعمال ECIT Hub بالرياض</image:caption>
+        </image:image>
+
+        <!-- Product 1 Image -->
+        <image:image>
+            <image:loc>https://ecit.com.sa/images/products/p1.png</image:loc>
+            <image:title>منصة التغذية المدرسية الذكية</image:title>
+            <image:caption>نظام ذكي متكامل لربط المدارس والأسر والعيادات والمقاصف - شركة ECIT</image:caption>
+        </image:image>
+
+        <!-- Product 2 Image -->
+        <image:image>
+            <image:loc>https://ecit.com.sa/images/products/p2.png</image:loc>
+            <image:title>تطبيق صيانة السيارات والورش المتخصصة</image:title>
+            <image:caption>تطبيق جوال وسيط لخدمات صيانة السيارات ومراكز الصيانة المعتمدة</image:caption>
+        </image:image>
+
+        <!-- Product 3 Image -->
+        <image:image>
+            <image:loc>https://ecit.com.sa/images/products/p3.png</image:loc>
+            <image:title>تطبيق خدمات البناء والتشييد والمقاولات</image:title>
+            <image:caption>منصة ربط العملاء بالمهندسين والمقاولين المعتمدين وإدارة عروض الأسعار</image:caption>
+        </image:image>
+
+        <!-- Product 4 Image -->
+        <image:image>
+            <image:loc>https://ecit.com.sa/images/products/p4.png</image:loc>
+            <image:title>تطبيق نقل الشحنات واللوجستيات الذكية</image:title>
+            <image:caption>منصة ربط وتتبع الشحنات والأسطول اللوجستي عبر خرائط GPS</image:caption>
+        </image:image>
+
+        <!-- Product 5 Image -->
+        <image:image>
+            <image:loc>https://ecit.com.sa/images/products/p5.png</image:loc>
+            <image:title>تطبيق تخطيط وإدارة الأفراح والمناسبات</image:title>
+            <image:caption>نظام متكامل لحجز القاعات ومقدمي خدمات الفعاليات والميزانية</image:caption>
+        </image:image>
+
+        <!-- Product 6 Image -->
+        <image:image>
+            <image:loc>https://ecit.com.sa/images/products/p6.png</image:loc>
+            <image:title>نظام إدارة وتنظيم المؤتمرات والمعارض الكبرى</image:title>
+            <image:caption>منصة متطورة لإصدار تذاكر QR وإدارة المتحدثين وجداول الجلسات</image:caption>
+        </image:image>
+
+        <!-- Product 7 Image -->
+        <image:image>
+            <image:loc>https://ecit.com.sa/images/products/p7.png</image:loc>
+            <image:title>تطبيق الخدمات المنزلية والصيانة عند الطلب</image:title>
+            <image:caption>منصة طلب خدمات السباكة والكهرباء والتكييف والنظافة بضمان الجودة</image:caption>
+        </image:image>
+
+        <!-- Product 8 Image -->
+        <image:image>
+            <image:loc>https://ecit.com.sa/images/products/p8.png</image:loc>
+            <image:title>تطبيق الاقتصاد التشاركي ومشاركة الأغراض</image:title>
+            <image:caption>تطبيق جوال لمشاركة وتأجير الأجهزة والمقتنيات بين الأفراد</image:caption>
+        </image:image>
+
+        <!-- Product 9 Image -->
+        <image:image>
+            <image:loc>https://ecit.com.sa/images/products/p9.png</image:loc>
+            <image:title>منصة القطاع غير الربحي والجمعيات الخيرية</image:title>
+            <image:caption>نظام إدارة المشاريع التنموية والتبرعات والزكاة بشفافية وحوكمة</image:caption>
+        </image:image>
+
+        <!-- Product 10 Image -->
+        <image:image>
+            <image:loc>https://ecit.com.sa/images/products/p10.png</image:loc>
+            <image:title>تطبيق خدمات الطعام والأسر المنتجة</image:title>
+            <image:caption>سوق رقمي لطلب المأكولات المنزلية والحلويات والولائم من الطهاة المحليين</image:caption>
+        </image:image>
+
+        <!-- Product 11 Image -->
+        <image:image>
+            <image:loc>https://ecit.com.sa/images/products/p11.png</image:loc>
+            <image:title>تطبيق Geet للتوصيل السريع والطرود</image:title>
+            <image:caption>تطبيق توصيل فوري للطرود وطلبات الشراء داخل المدن مع تتبع مباشر</image:caption>
+        </image:image>
+
+        <!-- Product 12 Image -->
+        <image:image>
+            <image:loc>https://ecit.com.sa/images/products/p12.png</image:loc>
+            <image:title>منصة حوكمة معايير التحول الرقمي DGA</image:title>
+            <image:caption>نظام قياس ومتابعة الامتثال لمعايير هيئة الحكومة الرقمية والمؤشرات الوطنية</image:caption>
+        </image:image>
+
+        <!-- Product 13 Image -->
+        <image:image>
+            <image:loc>https://ecit.com.sa/images/products/p13.png</image:loc>
+            <image:title>منصة اللجان واجتماعات مجالس الإدارة الذكية</image:title>
+            <image:caption>بوابة إلكترونية مشفرة لإدارة محاضر الاجتماعات والتصويت السري والتكليفات</image:caption>
+        </image:image>
+
+        <!-- Product 14 Image -->
+        <image:image>
+            <image:loc>https://ecit.com.sa/images/products/p14.png</image:loc>
+            <image:title>منصة المراجعة الداخلية وإدارة المخاطر والرقابة</image:title>
+            <image:caption>نظام تدقيق ومطابقة سنوية وفق معايير IIA العالمية ومصفوفات المخاطر</image:caption>
+        </image:image>
+
+        <!-- Product 15 Image -->
+        <image:image>
+            <image:loc>https://ecit.com.sa/images/products/p15.png</image:loc>
+            <image:title>منصة إدارة مكاتب المحاماة والاستشارات القانونية</image:title>
+            <image:caption>نظام رقمي شامل لإدارة القضايا والجلسات وبوابة الموكلين والفوترة الإلكترونية ZATCA</image:caption>
+        </image:image>
+
+        <!-- Product 16 Image -->
+        <image:image>
+            <image:loc>https://ecit.com.sa/images/products/p16.png</image:loc>
+            <image:title>منصة مزارعنا للاستثمار الزراعي الذكي</image:title>
+            <image:caption>بوابة استثمارية زراعية لبيع وتأجير المزارع وربطها بالتقنيات الحديثة</image:caption>
+        </image:image>
+
+        <!-- Product 17 Image -->
+        <image:image>
+            <image:loc>https://ecit.com.sa/images/products/p17.png</image:loc>
+            <image:title>منصة الأسواق والمتاجر متعددة البائعين Multi-Vendor</image:title>
+            <image:caption>سوق إلكتروني متكامل لدعم مبيعات التجار وتوزيع العمولات وبوابات الدفع والشحن</image:caption>
+        </image:image>
+
+        <!-- Product 18 Image -->
+        <image:image>
+            <image:loc>https://ecit.com.sa/images/products/p18.png</image:loc>
+            <image:title>منصة إدارة المشاريع المؤسسية PMO</image:title>
+            <image:caption>نظام تخطيط ومتابعة المشاريع التفاعلية ومخططات جانت والميزانيات التنبؤية</image:caption>
+        </image:image>
+    </url>
+
+    <!-- English Language Version -->
+    <url>
+        <loc>https://ecit.com.sa/?lang=en</loc>
+        <lastmod>2026-11-04</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+        <xhtml:link rel="alternate" hreflang="ar" href="https://ecit.com.sa/" />
+        <xhtml:link rel="alternate" hreflang="ar-SA" href="https://ecit.com.sa/" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://ecit.com.sa/?lang=en" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://ecit.com.sa/" />
+    </url>
+
+</urlset>
+
