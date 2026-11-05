@@ -29,7 +29,7 @@ function initNavbar() {
   window.addEventListener('scroll', () => {
     // Light navbar: only toggle a soft elevated state on scroll (never dark)
     navbar.classList.toggle('nav-scrolled', window.scrollY > 30);
-  });
+  }, { passive: true });
 
   if (mobileMenuBtn && mobileDrawer) {
     const icon = mobileMenuBtn.querySelector('i');
@@ -37,6 +37,7 @@ function initNavbar() {
     function closeDrawer() {
       mobileDrawer.classList.add('hidden');
       document.body.classList.remove('overflow-hidden');
+      mobileMenuBtn.setAttribute('aria-expanded', 'false');
       if (icon) icon.className = 'fa-solid fa-bars-staggered text-base sm:text-lg';
     }
 
@@ -45,6 +46,7 @@ function initNavbar() {
       mobileDrawer.style.top = navHeight + 'px';
       mobileDrawer.classList.remove('hidden');
       document.body.classList.add('overflow-hidden');
+      mobileMenuBtn.setAttribute('aria-expanded', 'true');
       if (icon) icon.className = 'fa-solid fa-xmark text-lg sm:text-xl text-cyan-400';
     }
 
@@ -1079,10 +1081,12 @@ function initProductsSystem() {
       return;
     }
 
-    container.innerHTML = items.map(p => `
+    container.innerHTML = items.map(p => {
+      const coverUrl = p.cover || ('images/products/' + p.id + '.png');
+      return `
       <div class="executive-card product-card-dazzle card-shimmer rounded-3xl overflow-hidden flex flex-col border border-slate-200/90 group bg-white shadow-md hover-glow-blue relative" data-cat="${p.category}">
         <div class="relative h-56 overflow-hidden bg-slate-100">
-          <img src="${p.cover}" alt="${p.title[currentLang]}" loading="lazy" onerror="this.onerror=null;this.src='${p.image}';this.classList.remove('object-cover');this.classList.add('object-contain','p-6');" class="w-full h-full object-cover transform group-hover:scale-108 transition-transform duration-700">
+          <img src="${coverUrl}" alt="${p.title[currentLang]}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='${p.image}';this.classList.remove('object-cover');this.classList.add('object-contain','p-6');" class="w-full h-full object-cover transform group-hover:scale-108 transition-transform duration-700">
           <div class="absolute inset-0 bg-gradient-to-t from-slate-950/50 via-slate-900/10 to-transparent pointer-events-none"></div>
           <span class="absolute top-3.5 right-3.5 text-xs font-bold px-3 py-1 rounded-full bg-white/95 text-blue-700 border border-white shadow-md backdrop-blur-md flex items-center gap-1.5">
             <span class="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span>
@@ -1103,17 +1107,17 @@ function initProductsSystem() {
             </p>
           </div>
           <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
-            <button onclick="openProductModal('${p.id}')" class="text-sm font-bold text-blue-600 hover:text-blue-700 flex items-center gap-2 group-hover:gap-3 transition-all">
+            <button onclick="openProductModal('${p.id}')" class="text-sm font-bold text-blue-600 hover:text-blue-700 flex items-center gap-2 group-hover:gap-3 transition-all" aria-label="${currentLang === 'ar' ? 'عرض تفاصيل ' + p.title[currentLang] : 'View details of ' + p.title[currentLang]}">
               <span>${currentLang === 'ar' ? 'عرض التفاصيل والمميزات' : 'View Details & Features'}</span>
               <i class="fa-solid fa-arrow-left ${currentLang === 'en' ? 'rotate-180' : ''} text-xs"></i>
             </button>
-            <button onclick="openConsultationForProduct('${p.title[currentLang]}')" class="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white border border-blue-100 flex items-center justify-center text-xs transition-colors shadow-sm" title="${currentLang === 'ar' ? 'طلب استشارة أو ديمو' : 'Request Demo'}">
+            <button onclick="openConsultationForProduct('${p.title[currentLang]}')" class="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white border border-blue-100 flex items-center justify-center text-xs transition-colors shadow-sm" title="${currentLang === 'ar' ? 'طلب استشارة أو ديمو' : 'Request Demo'}" aria-label="${currentLang === 'ar' ? 'طلب استشارة أو ديمو لـ ' + p.title[currentLang] : 'Request Demo for ' + p.title[currentLang]}">
               <i class="fa-solid fa-headset"></i>
             </button>
           </div>
         </div>
       </div>
-    `).join('');
+    `}).join('');
   };
 
   window.renderProducts();
@@ -1144,10 +1148,11 @@ window.openProductModal = function(id) {
   const modal = document.getElementById('details-modal');
   const modalBody = document.getElementById('details-modal-body');
 
+  const coverImg = product.cover || ('images/products/' + product.id + '.png');
   modalBody.innerHTML = `
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
       <div class="rounded-2xl border border-slate-200 overflow-hidden shadow-md bg-slate-100 aspect-[16/10]">
-        <img src="${product.cover}" alt="${product.title[currentLang]}" onerror="this.onerror=null;this.src='${product.image}';this.classList.remove('object-cover');this.classList.add('object-contain','p-6');" class="w-full h-full object-cover">
+        <img src="${coverImg}" alt="${product.title[currentLang]}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='${product.image}';this.classList.remove('object-cover');this.classList.add('object-contain','p-6');" class="w-full h-full object-cover">
       </div>
       <div>
         <div class="flex items-center gap-2 mb-3">
@@ -1731,8 +1736,31 @@ function initConsultationModal() {
   }
 
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
-      closeModal();
+    if (e.key === 'Escape') {
+      if (modal && modal.classList.contains('active')) {
+        closeModal();
+      }
+      const chatbotWin = document.getElementById('chatbot-window');
+      const chatbotBtn = document.getElementById('chatbot-toggle-btn');
+      if (chatbotWin && chatbotWin.classList.contains('open')) {
+        chatbotWin.classList.remove('open');
+        if (chatbotBtn) {
+          chatbotBtn.setAttribute('aria-expanded', 'false');
+          chatbotBtn.focus();
+        }
+      }
+      const drawer = document.getElementById('mobile-drawer');
+      const mobileBtn = document.getElementById('mobile-menu-btn');
+      if (drawer && !drawer.classList.contains('hidden')) {
+        drawer.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+        if (mobileBtn) {
+          mobileBtn.setAttribute('aria-expanded', 'false');
+          const icon = mobileBtn.querySelector('i');
+          if (icon) icon.className = 'fa-solid fa-bars-staggered text-base sm:text-lg';
+          mobileBtn.focus();
+        }
+      }
     }
   });
 
@@ -1741,6 +1769,36 @@ function initConsultationModal() {
     document.body.classList.remove('overflow-hidden');
   }
 }
+
+/* ==================== EXECUTIVE TOAST NOTIFICATIONS (ENHANCED UX) ==================== */
+function showExecutiveToast(msg, type = 'success') {
+  let toast = document.getElementById('executive-toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'executive-toast';
+    toast.setAttribute('role', 'alert');
+    toast.setAttribute('aria-live', 'polite');
+    document.body.appendChild(toast);
+  }
+  const isSuccess = type === 'success';
+  toast.className = `fixed top-24 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-6 py-3.5 rounded-2xl shadow-2xl transition-all duration-300 pointer-events-auto text-sm font-bold border backdrop-blur-md ${
+    isSuccess ? 'bg-slate-900/95 text-emerald-400 border-emerald-500/50 shadow-emerald-500/20' : 'bg-slate-900/95 text-rose-400 border-rose-500/50 shadow-rose-500/20'
+  }`;
+  toast.innerHTML = `
+    <i class="fa-solid ${isSuccess ? 'fa-circle-check text-emerald-400' : 'fa-circle-exclamation text-rose-400'} text-lg"></i>
+    <span class="text-white">${msg}</span>
+  `;
+  toast.style.opacity = '1';
+  toast.style.transform = 'translate(-50%, 0)';
+
+  clearTimeout(window.toastTimer);
+  window.toastTimer = setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translate(-50%, -15px)';
+    toast.classList.remove('pointer-events-auto');
+  }, 4000);
+}
+window.showExecutiveToast = showExecutiveToast;
 
 window.openConsultationForProduct = function(topic) {
   const modal = document.getElementById('details-modal');
@@ -1776,7 +1834,7 @@ function initContactForm() {
     const message = document.getElementById('form-message').value.trim();
 
     if (!name || !email || !message) {
-      alert(currentLang === 'ar' ? 'يرجى ملء كافة الحقول المطلوبة' : 'Please fill all required fields');
+      showExecutiveToast(currentLang === 'ar' ? 'يرجى ملء كافة الحقول المطلوبة الإلزامية (*)' : 'Please fill all required fields (*)', 'error');
       return;
     }
 
@@ -1785,9 +1843,10 @@ function initContactForm() {
 
     if (successBox) {
       successBox.classList.remove('hidden');
+      showExecutiveToast(currentLang === 'ar' ? 'تم إرسال طلبك بنجاح! جاري تحويلك لمستشارنا...' : 'Consultation request sent! Redirecting to WhatsApp...', 'success');
       form.reset();
       setTimeout(() => {
-        window.open(whatsappUrl, '_blank');
+        window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
       }, 700);
     }
   });
@@ -1806,11 +1865,19 @@ function initChatbot() {
   if (!toggleBtn || !windowEl || !messagesBox || !form || !input) return;
 
   function toggleChatbot() {
-    windowEl.classList.toggle('open');
+    const isOpen = windowEl.classList.toggle('open');
+    toggleBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    if (isOpen) {
+      setTimeout(() => input.focus(), 150);
+    }
   }
 
   toggleBtn.addEventListener('click', toggleChatbot);
-  if (closeBtn) closeBtn.addEventListener('click', () => windowEl.classList.remove('open'));
+  if (closeBtn) closeBtn.addEventListener('click', () => {
+    windowEl.classList.remove('open');
+    toggleBtn.setAttribute('aria-expanded', 'false');
+    toggleBtn.focus();
+  });
   if (resetBtn) resetBtn.addEventListener('click', () => {
     messagesBox.innerHTML = '';
     renderWelcome();
@@ -1984,8 +2051,8 @@ function generateSmartAnswer(query) {
   }
 
   return isAr
-    ? `شكراً لتواصلك! لمعرفة المزيد حول هذا الاستفسار ومناقشة تفاصيل مشروعك التقني، يسعدنا التحدث معك مباشرة عبر واتساب: <br><a href="https://wa.me/966501252878" target="_blank" class="inline-block mt-2 px-3 py-1.5 rounded-lg bg-emerald-600 text-white font-bold text-xs"><i class="fa-brands fa-whatsapp ml-1"></i> تواصل مع المستشار التقني (+966501252878)</a>`
-    : `Thank you for reaching out! To discuss your project specifications directly with an engineering consultant, connect with us on WhatsApp: <br><a href="https://wa.me/966501252878" target="_blank" class="inline-block mt-2 px-3 py-1.5 rounded-lg bg-emerald-600 text-white font-bold text-xs"><i class="fa-brands fa-whatsapp mr-1"></i> WhatsApp Consultant (+966501252878)</a>`;
+    ? `شكراً لتواصلك! لمعرفة المزيد حول هذا الاستفسار ومناقشة تفاصيل مشروعك التقني، يسعدنا التحدث معك مباشرة عبر واتساب: <br><a href="https://wa.me/966501252878" target="_blank" rel="noopener noreferrer" class="inline-block mt-2 px-3 py-1.5 rounded-lg bg-emerald-600 text-white font-bold text-xs"><i class="fa-brands fa-whatsapp ml-1"></i> تواصل مع المستشار التقني (+966501252878)</a>`
+    : `Thank you for reaching out! To discuss your project specifications directly with an engineering consultant, connect with us on WhatsApp: <br><a href="https://wa.me/966501252878" target="_blank" rel="noopener noreferrer" class="inline-block mt-2 px-3 py-1.5 rounded-lg bg-emerald-600 text-white font-bold text-xs"><i class="fa-brands fa-whatsapp mr-1"></i> WhatsApp Consultant (+966501252878)</a>`;
 }
 
 /* ==================== 10. BACK TO TOP ==================== */
@@ -2001,7 +2068,7 @@ function initBackToTop() {
       backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
       backToTopBtn.classList.remove('opacity-100');
     }
-  });
+  }, { passive: true });
 
   backToTopBtn.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });

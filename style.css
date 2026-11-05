@@ -661,3 +661,37 @@ html[dir="ltr"] body {
   transform: translateY(-3px);
   box-shadow: 0 8px 18px -4px rgba(0, 102, 255, 0.2);
 }
+
+/* ==================== 100% ACCESSIBILITY & USER EXPERIENCE (a11y & UX) ==================== */
+
+/* Focus Visible for Keyboard Navigation (WCAG 2.4.7 Focus Visible) */
+:focus-visible {
+  outline: 2px solid #0066ff !important;
+  outline-offset: 3px !important;
+  border-radius: 8px;
+}
+button:focus-visible, a:focus-visible {
+  box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.35) !important;
+}
+
+/* Section Anchor Scroll Offset (Prevents fixed navbar overlapping section titles) */
+section[id], footer[id], div[id] {
+  scroll-margin-top: 85px;
+}
+
+/* Reduced Motion for Accessibility (WCAG 2.1 Criterion 2.3.3) */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Performance: Intelligent Content Visibility for Below-the-Fold Sections (Ultra-Fast FCP & LCP) */
+#about, #tracks, #services, #products, #projects, #partners, #contact {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 650px;
+}
+
